@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fluxo de Contratação do Serviço de Saúde - Líder Ligando</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!--
+    Chosen Palette: Energetic & Playful Vibrant (Navy #1E1B4B, Coral/Orange #EA580C, Teal #0D9488, Soft Amber #FEF3C7, Clean Slate #F8FAFC)
+    Narrative Plan:
+    1. Hero Header & Overview KPIs - Introduce the program context, purpose, and key actors with high-impact large stats.
+    2. Interactive Path Filter - Allow users to toggle between Opção A (Programa Completo), Opção B (Apenas Saúde), and Opção C (Não Aderir) to focus on relevant steps.
+    3. Step-by-Step Flow Map - Large text cards, step badges, clear decision logic, and HTML/CSS directional connectors (No SVG).
+    4. Responsibility Matrix - Structured grid detailing exact roles for Líder, GN, Central de Apoio, Bloom, and Backoffice.
+    5. Operational Dashboard - Chart.js visualizations highlighting adherence distribution and average stage response times.
+    Visualization Choices:
+    - Path Filter & Process Cards: Interactive HTML/Tailwind -> Goal: Organize & Compare -> Justification: Eliminates blurry image text with crisp 18px-24px typography.
+    - Adherence Breakdown: Chart.js Doughnut -> Goal: Show Composition -> Justification: Clear breakdown of decision choices.
+    - Process SLA Bar Chart: Chart.js Horizontal Bar -> Goal: Process Timelines -> Justification: Illustrates duration and handoffs across departments.
+    Confirmation: NEITHER Mermaid JS NOR SVG were used anywhere in this output.
+    -->
+    <style>
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 580px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 320px;
+            max-height: 380px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 360px;
+            }
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 font-sans antialiased leading-relaxed pb-16">
+
+    <!-- Header / Banner Principal -->
+    <header class="bg-indigo-950 text-white shadow-xl border-b-4 border-orange-500">
+        <div class="max-w-7xl mx-auto px-6 py-10">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+                <div>
+                    <div class="flex items-center gap-3 mb-3">
+                        <span class="bg-orange-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
+                            Sustentabilidade & Redes de Bem-Estar
+                        </span>
+                        <span class="bg-teal-700 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
+                            Natura
+                        </span>
+                    </div>
+                    <h1 class="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight text-white">
+                        Fluxo: Contratação de Serviço de Saúde
+                    </h1>
+                    <p class="text-xl text-indigo-200 mt-2 font-medium max-w-3xl">
+                        Programa de Apoio à Maternidade e Paternidade Líder — Guia Visual Ampliado & Passo a Passo
+                    </p>
+                </div>
+                <div class="bg-indigo-900/80 p-4 rounded-xl border border-indigo-700/60 text-right min-w-[220px]">
+                    <span class="text-xs uppercase text-indigo-300 font-semibold tracking-wider block">Atendimento</span>
+                    <span class="text-2xl font-bold text-orange-400">Líder Ligando</span>
+                    <span class="text-sm text-indigo-200 block mt-1">Central de Apoio Social</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Seção de KPIs / Resumo do Programa -->
+    <section class="max-w-7xl mx-auto px-6 -mt-6">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+            <div class="bg-white rounded-2xl p-6 shadow-md border-l-8 border-orange-500 flex flex-col justify-between">
+                <span class="text-sm font-bold text-slate-500 uppercase">Caminhos de Adesão</span>
+                <span class="text-4xl font-extrabold text-slate-900 mt-2">3 Opções</span>
+                <span class="text-xs text-slate-600 mt-2">Programa Completo, Apenas Saúde ou Manutenção</span>
+            </div>
+            <div class="bg-white rounded-2xl p-6 shadow-md border-l-8 border-teal-500 flex flex-col justify-between">
+                <span class="text-sm font-bold text-slate-500 uppercase">Tempo de Suporte</span>
+                <span class="text-4xl font-extrabold text-teal-700 mt-2">Até 6 Meses</span>
+                <span class="text-xs text-slate-600 mt-2">Acompanhamento contínuo via parceira Bloom</span>
+            </div>
+            <div class="bg-white rounded-2xl p-6 shadow-md border-l-8 border-indigo-600 flex flex-col justify-between">
+                <span class="text-sm font-bold text-slate-500 uppercase">Público Elegível</span>
+                <span class="text-4xl font-extrabold text-indigo-900 mt-2">Líderes Ativas</span>
+                <span class="text-xs text-slate-600 mt-2">Ou rescindidas via programa de maternidade</span>
+            </div>
+            <div class="bg-white rounded-2xl p-6 shadow-md border-l-8 border-amber-500 flex flex-col justify-between">
+                <span class="text-sm font-bold text-slate-500 uppercase">Fechamento Mensal</span>
+                <span class="text-4xl font-extrabold text-amber-600 mt-2">1ª Semana</span>
+                <span class="text-xs text-slate-600 mt-2">Envio da planilha de controle para financeiro</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Introdução e Filtro Interativo de Caminho -->
+    <main class="max-w-7xl mx-auto px-6 mt-12 space-y-12">
+
+        <section class="bg-white rounded-2xl p-8 shadow-md border border-slate-200">
+            <h2 class="text-2xl md:text-3xl font-extrabold text-indigo-950 mb-3">
+                Selecione a Opção para Visualizar o Fluxo Específico
+            </h2>
+            <p class="text-lg text-slate-600 mb-6">
+                Para facilitar a leitura e eliminar ambiguidades do diagrama original, escolha abaixo qual decisão a Líder de Negócios tomou para destacar as etapas correspondentes:
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4" id="filter-buttons">
+                <button onclick="filterPath('all')" id="btn-all" class="path-btn active p-5 rounded-xl border-2 text-left transition-all duration-200 bg-indigo-950 text-white border-indigo-950 shadow-md">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="font-bold text-xl">Visão Completa</span>
+                        <span class="text-xs bg-indigo-800 text-indigo-100 font-bold px-2 py-1 rounded">Todas as Etapas</span>
+                    </div>
+                    <p class="text-sm opacity-90">Exibe todas as ramificações e decisões do processo simultaneamente.</p>
+                </button>
+
+                <button onclick="filterPath('opcao-a')" id="btn-opcao-a" class="path-btn p-5 rounded-xl border-2 text-left transition-all duration-200 bg-white text-slate-800 border-orange-300 hover:border-orange-500">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="font-bold text-xl text-orange-600">Opção A</span>
+                        <span class="text-xs bg-orange-100 text-orange-800 font-bold px-2 py-1 rounded">Programa Completo</span>
+                    </div>
+                    <p class="text-sm text-slate-600">Afastamento formal comercial + Benefício de Saúde por até 6 meses.</p>
+                </button>
+
+                <button onclick="filterPath('opcao-b')" id="btn-opcao-b" class="path-btn p-5 rounded-xl border-2 text-left transition-all duration-200 bg-white text-slate-800 border-teal-300 hover:border-teal-500">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="font-bold text-xl text-teal-700">Opção B</span>
+                        <span class="text-xs bg-teal-100 text-teal-800 font-bold px-2 py-1 rounded">Apenas Saúde</span>
+                    </div>
+                    <p class="text-sm text-slate-600">Mantém atividades comerciais normais + Suporte de saúde Bloom.</p>
+                </button>
+            </div>
+        </section>
+
+        <!-- Mapeamento Etapa por Etapa com Tipografia Grande -->
+        <section class="space-y-8">
+
+            <!-- ETAPA 1 -->
+            <div class="step-card bg-white rounded-2xl p-8 shadow-md border-l-8 border-indigo-900 transition-all duration-300">
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6 border-b border-slate-200 pb-4">
+                    <div class="flex items-center gap-4">
+                        <span class="w-12 h-12 bg-indigo-950 text-white font-extrabold text-2xl rounded-2xl flex items-center justify-center shadow">
+                            1
+                        </span>
+                        <div>
+                            <span class="text-xs uppercase font-bold text-indigo-600 tracking-wider block">Primeiro Contato</span>
+                            <h3 class="text-2xl md:text-3xl font-extrabold text-slate-900">
+                                Alinhamento Inicial (Líder e Gerente de Negócios)
+                            </h3>
+                        </div>
+                    </div>
+                    <span class="bg-slate-100 text-slate-700 text-sm font-semibold px-4 py-2 rounded-lg self-start md:self-auto">
+                        Responsáveis: Líder e GN
+                    </span>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="bg-slate-50 p-6 rounded-xl border border-slate-200">
+                        <div class="text-orange-600 font-bold text-lg mb-2">1. Notificação Inicial</div>
+                        <p class="text-slate-700 text-base leading-relaxed">
+                            A Líder de Negócios comunica sua gestação ou processo de adoção diretamente à sua Gerente de Negócios (GN).
+                        </p>
+                    </div>
+
+                    <div class="bg-slate-50 p-6 rounded-xl border border-slate-200">
+                        <div class="text-orange-600 font-bold text-lg mb-2">2. Apresentação do Benefício</div>
+                        <p class="text-slate-700 text-base leading-relaxed">
+                            A Gerente de Negócios detalha o Programa de Apoio à Maternidade e Paternidade (regras, prazos e benefícios).
+                        </p>
+                    </div>
+
+                    <div class="bg-indigo-50 p-6 rounded-xl border border-indigo-200">
+                        <div class="text-indigo-950 font-bold text-lg mb-2">3. Decisão da Líder</div>
+                        <p class="text-slate-700 text-base leading-relaxed">
+                            A Líder avalia suas necessidades e escolhe entre 3 caminhos possíveis de adesão ao programa.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Ramos de Decisão da Etapa 1 -->
+                <div class="mt-8 pt-6 border-t border-slate-200">
+                    <h4 class="text-lg font-bold text-slate-900 mb-4 uppercase tracking-wider text-xs">Desfechos da Decisão:</h4>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div class="p-5 rounded-xl border-2 border-orange-300 bg-orange-50/50">
+                            <span class="bg-orange-600 text-white text-xs font-bold px-2 py-1 rounded mb-2 inline-block">Opção A</span>
+                            <h5 class="font-bold text-lg text-slate-900 mb-1">Programa Completo</h5>
+                            <p class="text-sm text-slate-700">Afastamento comercial formal + Benefício de Saúde Bloom por até 6 meses.</p>
+                        </div>
+                        <div class="p-5 rounded-xl border-2 border-teal-300 bg-teal-50/50">
+                            <span class="bg-teal-700 text-white text-xs font-bold px-2 py-1 rounded mb-2 inline-block">Opção B</span>
+                            <h5 class="font-bold text-lg text-slate-900 mb-1">Apenas Serviço de Saúde</h5>
+                            <p class="text-sm text-slate-700">Mantém atividade de vendas ativa + Recebe acesso ao suporte de saúde.</p>
+                        </div>
+                        <div class="p-5 rounded-xl border-2 border-slate-300 bg-slate-100">
+                            <span class="bg-slate-600 text-white text-xs font-bold px-2 py-1 rounded mb-2 inline-block">Opção C</span>
+                            <h5 class="font-bold text-lg text-slate-900 mb-1">Não Aderir</h5>
+                            <p class="text-sm text-slate-700">A Líder declina o benefício e segue com suas atividades normais sem alterações.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Setas de Conexão HTML -->
+            <div class="flex justify-center my-2">
+                <div class="bg-indigo-950 text-white text-xl font-bold px-6 py-2 rounded-full shadow flex items-center gap-2">
+                    <span>▼ Avanço para o Encaminhamento</span>
+                </div>
+            </div>
+
+            <!-- ETAPA 2 -->
+            <div class="step-card bg-white rounded-2xl p-8 shadow-md border-l-8 border-orange-500 transition-all duration-300">
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6 border-b border-slate-200 pb-4">
+                    <div class="flex items-center gap-4">
+                        <span class="w-12 h-12 bg-orange-600 text-white font-extrabold text-2xl rounded-2xl flex items-center justify-center shadow">
+                            2
+                        </span>
+                        <div>
+                            <span class="text-xs uppercase font-bold text-orange-600 tracking-wider block">Direcionamento</span>
+                            <h3 class="text-2xl md:text-3xl font-extrabold text-slate-900">
+                                Encaminhamento pela Gerente de Negócios (GN)
+                            </h3>
+                        </div>
+                    </div>
+                    <span class="bg-orange-100 text-orange-900 text-sm font-semibold px-4 py-2 rounded-lg self-start md:self-auto">
+                        Responsável: Gerente de Negócios (GN)
+                    </span>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <!-- Opção A Flow -->
+                    <div class="path-section path-a bg-orange-50/70 p-6 rounded-2xl border-2 border-orange-200">
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-base font-bold text-orange-900 uppercase tracking-wide">Se escolheu Opção A (Programa Completo)</span>
+                            <span class="bg-orange-600 text-white text-xs font-bold px-3 py-1 rounded-full">Afastamento</span>
+                        </div>
+                        <ul class="space-y-4">
+                            <li class="flex items-start gap-3 bg-white p-4 rounded-xl shadow-sm border border-orange-100">
+                                <span class="bg-orange-500 text-white rounded-full w-7 h-7 flex items-center justify-center font-bold text-sm shrink-0 mt-0.5">A1</span>
+                                <span class="text-slate-800 font-medium text-base">A GN realiza a etapa de distrato formal e providencia a inclusão da nova Líder (substituição temporária).</span>
+                            </li>
+                            <li class="flex items-start gap-3 bg-white p-4 rounded-xl shadow-sm border border-orange-100">
+                                <span class="bg-orange-500 text-white rounded-full w-7 h-7 flex items-center justify-center font-bold text-sm shrink-0 mt-0.5">A2</span>
+                                <span class="text-slate-800 font-medium text-base">A GN orienta expressamente a Líder a entrar em contato direto com a <strong>Central de Apoio Social</strong>.</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Opção B Flow -->
+                    <div class="path-section path-b bg-teal-50/70 p-6 rounded-2xl border-2 border-teal-200">
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-base font-bold text-teal-900 uppercase tracking-wide">Se escolheu Opção B (Apenas Saúde)</span>
+                            <span class="bg-teal-700 text-white text-xs font-bold px-3 py-1 rounded-full">Manutenção Ativa</span>
+                        </div>
+                        <ul class="space-y-4">
+                            <li class="flex items-start gap-3 bg-white p-4 rounded-xl shadow-sm border border-teal-100">
+                                <span class="bg-teal-700 text-white rounded-full w-7 h-7 flex items-center justify-center font-bold text-sm shrink-0 mt-0.5">B1</span>
+                                <span class="text-slate-800 font-medium text-base"><strong>Não há distrato</strong> nem paralisação da atividade comercial da Líder.</span>
+                            </li>
+                            <li class="flex items-start gap-3 bg-white p-4 rounded-xl shadow-sm border border-teal-100">
+                                <span class="bg-teal-700 text-white rounded-full w-7 h-7 flex items-center justify-center font-bold text-sm shrink-0 mt-0.5">B2</span>
+                                <span class="text-slate-800 font-medium text-base">A GN orienta a Líder a ligar para a <strong>Central de Apoio Social</strong> para ativar o benefício de saúde.</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Setas de Conexão HTML -->
+            <div class="flex justify-center my-2">
+                <div class="bg-indigo-950 text-white text-xl font-bold px-6 py-2 rounded-full shadow flex items-center gap-2">
+                    <span>▼ Contato Telefônico com a Central</span>
+                </div>
+            </div>
+
+            <!-- ETAPA 3 -->
+            <div class="step-card bg-white rounded-2xl p-8 shadow-md border-l-8 border-teal-600 transition-all duration-300">
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6 border-b border-slate-200 pb-4">
+                    <div class="flex items-center gap-4">
+                        <span class="w-12 h-12 bg-teal-700 text-white font-extrabold text-2xl rounded-2xl flex items-center justify-center shadow">
+                            3
+                        </span>
+                        <div>
+                            <span class="text-xs uppercase font-bold text-teal-700 tracking-wider block">Validação & Triagem</span>
+                            <h3 class="text-2xl md:text-3xl font-extrabold text-slate-900">
+                                Atendimento na Central de Apoio Social
+                            </h3>
+                        </div>
+                    </div>
+                    <span class="bg-teal-100 text-teal-900 text-sm font-semibold px-4 py-2 rounded-lg self-start md:self-auto">
+                        Responsável: Central de Apoio Social
+                    </span>
+                </div>
+
+                <div class="space-y-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="bg-slate-50 p-6 rounded-xl border border-slate-200">
+                            <span class="bg-slate-800 text-white text-xs font-bold px-2 py-1 rounded uppercase">Passo 3.1</span>
+                            <h4 class="font-bold text-lg text-slate-900 mt-2 mb-2">Ligação de Entrada da Líder</h4>
+                            <p class="text-slate-700 text-base">A Líder entra em contato por telefone informando interesse no serviço de saúde do programa.</p>
+                        </div>
+
+                        <div class="bg-slate-50 p-6 rounded-xl border border-slate-200">
+                            <span class="bg-slate-800 text-white text-xs font-bold px-2 py-1 rounded uppercase">Passo 3.2</span>
+                            <h4 class="font-bold text-lg text-slate-900 mt-2 mb-2">Validação no Sistema de Elegibilidade</h4>
+                            <p class="text-slate-700 text-base">A Central verifica se a solicitante é Líder ativa ou rescindida pelo programa maternidade.</p>
+                        </div>
+                    </div>
+
+                    <!-- Árvore de Validação de Elegibilidade -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-2">
+                        <div class="bg-red-50 p-6 rounded-2xl border-2 border-red-200">
+                            <div class="flex items-center gap-2 text-red-700 font-extrabold text-lg mb-2">
+                                <span>❌ Inelegível / Fora da Regra</span>
+                            </div>
+                            <p class="text-slate-700 text-base mb-4">
+                                Se a solicitante nunca foi Líder ou não cumpre os requisitos do programa:
+                            </p>
+                            <div class="bg-white p-4 rounded-xl text-red-900 font-medium text-sm border border-red-200">
+                                ➔ Encerrar o atendimento orientando sobre a regra de exclusividade para Líderes de Negócios.
+                            </div>
+                        </div>
+
+                        <div class="bg-emerald-50 p-6 rounded-2xl border-2 border-emerald-300">
+                            <div class="flex items-center gap-2 text-emerald-800 font-extrabold text-lg mb-2">
+                                <span> Efetivação / Dentro da Regra</span>
+                            </div>
+                            <p class="text-slate-700 text-base mb-4">
+                                A Central explica as orientações e confirma se a Líder deseja o contato da parceira Bloom:
+                            </p>
+                            <div class="space-y-3">
+                                <div class="bg-white p-3 rounded-lg border border-slate-200 text-sm">
+                                    <strong class="text-red-600">Se Recusar (NÃO):</strong> Reforça que pode ligar novamente se mude de ideia. Finaliza.
+                                </div>
+                                <div class="bg-emerald-100 p-3 rounded-lg border border-emerald-300 text-sm font-semibold text-emerald-900">
+                                    <strong class="text-emerald-800">Se Aceitar (SIM):</strong> Central informa telefone da Bloom à Líder e envia e-mail para a Bloom contendo Nome, Telefone e Código da Consultora.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Setas de Conexão HTML -->
+            <div class="flex justify-center my-2">
+                <div class="bg-indigo-950 text-white text-xl font-bold px-6 py-2 rounded-full shadow flex items-center gap-2">
+                    <span>▼ Ativação Digital com a Parceira</span>
+                </div>
+            </div>
+
+            <!-- ETAPA 4 -->
+            <div class="step-card bg-white rounded-2xl p-8 shadow-md border-l-8 border-amber-500 transition-all duration-300">
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6 border-b border-slate-200 pb-4">
+                    <div class="flex items-center gap-4">
+                        <span class="w-12 h-12 bg-amber-500 text-white font-extrabold text-2xl rounded-2xl flex items-center justify-center shadow">
+                            4
+                        </span>
+                        <div>
+                            <span class="text-xs uppercase font-bold text-amber-600 tracking-wider block">Uso do Benefício</span>
+                            <h3 class="text-2xl md:text-3xl font-extrabold text-slate-900">
+                                Ativação e Utilização com a Parceira Bloom
+                            </h3><
